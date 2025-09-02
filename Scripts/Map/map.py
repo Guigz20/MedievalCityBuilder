@@ -15,6 +15,10 @@ class Map:
         self.initialize()
         self.surface = self.redraw_surface(INITIAL_SCALE_FACTOR)
 
+        self.should_move = False
+        self.direction = ""
+        self.speed = 40
+
     def initialize(self):
         for x in range(0, SCREEN_WIDTH//(self.tile_size[0]*INITIAL_SCALE_FACTOR) + 1):
             for y in range(0, SCREEN_HEIGHT//(self.tile_size[0]*INITIAL_SCALE_FACTOR) + 1):
@@ -33,9 +37,18 @@ class Map:
         surface = pg.surface.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
         for tile in self.map:
             surface.blit(self.map[tile], (tile[0]*self.tile_size[0]*scale, tile[1]*self.tile_size[0]*scale))
-        print("Redraw surface done")
         return surface
 
     def draw(self):
         self.screen.blit(self.surface, (self.offset[0], self.offset[1]))
 
+    def move(self, dt: int):
+        if self.should_move:
+            if self.direction == "right":
+                self.offset[0] -= self.speed*dt
+            elif self.direction == "left":
+                self.offset[0] += self.speed*dt
+            elif self.direction == "up":
+                self.offset[1] += self.speed*dt
+            elif self.direction == "down":
+                self.offset[1] -= self.speed*dt
