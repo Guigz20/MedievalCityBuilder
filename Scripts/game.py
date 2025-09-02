@@ -1,5 +1,6 @@
 import pygame as pg
 from Utilz.constants import *
+from Map.map import Map
 
 class Game:
     def __init__(self):
@@ -9,11 +10,17 @@ class Game:
         self.clock = pg.time.Clock()
 
         self.running = True
+        self.scale_factor = INITIAL_SCALE_FACTOR
+
+        self.map = Map()
 
     def loop(self):
         while self.running:
             dt = self.clock.tick(120)/1000
 
+            self.map.draw()
+
+            pg.display.flip()
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     self.running = False
