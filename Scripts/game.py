@@ -1,4 +1,6 @@
 import pygame as pg
+import pygame.joystick
+
 from Utilz.constants import *
 from Map.map import Map
 
@@ -14,6 +16,8 @@ class Game:
 
         self.map = Map()
 
+        self.joysticks = {}
+
     def loop(self):
         while self.running:
             dt = self.clock.tick(120)/1000
@@ -23,10 +27,16 @@ class Game:
             self.map.draw(self.scale_factor)
             self.map.move(dt)
 
+            #print(self.joystick.get_ball(0))
+
             pg.display.flip()
             for event in pg.event.get():
+                if event.type == pg.JOYDEVICEADDED:
+                    joystick = pygame.joystick.Joystick(event.device_index)
+                    self.joysticks[joystick.get_instance_id()] = joystick
+                    print(f"Joystick {joystick.get_instance_id()} added! ")
 
-                if event.type == pg.QUIT:
+                elif event.type == pg.QUIT:
                     self.running = False
                     pg.quit()
 
