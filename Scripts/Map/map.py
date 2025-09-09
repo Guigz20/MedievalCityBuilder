@@ -8,57 +8,43 @@ import random
 class Map:
     def __init__(self):
         self.screen = pg.display.get_surface()
-        self.tile_size = (36, 36)
+        self.tile_size = 36
 
         self.map = {}
         self.width, self.height = 0, 0
         self.offset = [0, 0]
-        self.blit_offset = [-self.tile_size[0]*INITIAL_SCALE_FACTOR, -self.tile_size[1]*INITIAL_SCALE_FACTOR]
-
-        self.initialize()
+        self.blit_offset = [-self.tile_size*INITIAL_SCALE_FACTOR/2, -self.tile_size*INITIAL_SCALE_FACTOR/2]
 
         self.in_screen_tiles = {}
-        self.reset_in_game_tiles(INITIAL_SCALE_FACTOR)
 
         self.should_move = False
         self.direction = ""
         self.speed = 120
 
-    def initialize(self):
-        for x in range(0, 200):
-            for y in range(0, 200):
-                surface = pg.image.load('../Assets/Map/Images/Grass01.png')
-                surface = pg.transform.scale(surface,(self.tile_size[0]*INITIAL_SCALE_FACTOR, self.tile_size[1]*INITIAL_SCALE_FACTOR))
-                if random.randint(0, 1) == 0:
-                    surface = pg.transform.flip(surface, True, False)
-                self.map[(x, y)] = surface
-                if y > self.width:
-                    self.width = y
-            if x > self.height:
-                self.height = x
-        print(SCREEN_WIDTH//(self.tile_size[0]*INITIAL_SCALE_FACTOR))
+        self.grass = pg.image.load('../Assets/Map/Images/Grass01.png')
+        self.grass_list = [[]]
 
-    def reset_in_game_tiles(self, scale):
-        print("Resetting in-game tiles")
-        is_first_tile = True
-        for tile in self.map:
-            tile_pos_x, tile_pos_y = tile[0]*self.tile_size[0]*scale, tile[1]*self.tile_size[1]*scale
-            tile_size = self.tile_size[0]*scale
-            if tile_pos_x > self.offset[0]-tile_size and tile_pos_y > self.offset[1]-tile_size:
-                if tile_pos_x < self.offset[0]+tile_size+SCREEN_WIDTH and tile_pos_y < self.offset[1]+tile_size+SCREEN_HEIGHT:
-                    self.in_screen_tiles[tile] = self.map[tile]
-                    if is_first_tile:
-                        self.blit_offset = [tile[0]*scale*self.tile_size[0] + self.offset[0], tile[1]*scale*self.tile_size[0] + self.offset[1]]
-                        is_first_tile = False
+    def initiate_surface(self, scale_factor):
+
+        for x in range(SCREEN_WIDTH//TILE_SIZE*scale_factor):
+            for y in range(SCREEN_HEIGHT//TILE_SIZE*scale_factor):
+                scaled_grass = pg.transform.scale(self.grass, (TILE_SIZE*scale_factor, TILE_SIZE*scale_factor))
+                rotated_grass = pg.transform.flip(scaled_grass, True, False)
+                self.grass_list[x].append(pg.transform.scale(rotated_grass, (TILE_SIZE*scale_factor, TILE_SIZE*scale_factor)))
+
 
     def draw(self,scale):
-        for tile in self.in_screen_tiles:
-            self.screen.blit(self.in_screen_tiles[tile], (tile[0]*scale*self.tile_size[0] + self.offset[0], tile[1]*scale*self.tile_size[0] + self.offset[1]))
-        if abs(self.blit_offset[0]) >= self.tile_size[0]*scale or abs(self.blit_offset[1]) >= self.tile_size[0]*scale:
-            self.reset_in_game_tiles(scale)
-            print(self.blit_offset)
+        pygame.draw.circle(self.screen, (255, 0, 0), self.offset, 10)
+        pygame.draw.circle(self.screen, (0, 255, 0), self.blit_offset, 10)
+        self.scaled_grass = pg.transform.scale(self.grass, (self.tile_size*scale, self.tile_size*scale))
+        for x in range(SCREEN_WIDTH//self.tile_size*scale + self.tile_size*scale):
+            for y in range(SCREEN_HEIGHT//self.tile_size*scale + self.tile_size*scale):
+                x_blit = self.blit_offset[0]+x*self.tile_size*scale-self.tile_size*scale
+                y_blit = self.blit_offset[1]+y*self.tile_size*scale-self.tile_size*scale
+                self.screen.blit(self.scaled_grass, (x_blit, y_blit))
 
-    def move(self, dt: int):
+
+    def move(self, dt: float, scale: float):
 
         keys = pg.key.get_pressed()
         if keys[pg.K_w]:
@@ -73,3 +59,12 @@ class Map:
         elif keys[pg.K_d]:
             self.offset[0] -= self.speed * dt
             self.blit_offset[0] -= self.speed * dt
+
+        if self.blit_offset[0] < 0:
+            self.blit_offset[0] = self.tile_size*scale
+        elif self.blit_offset[1] < 0:
+            self.blit_offset[1] = self.tile_size*scale
+        elif self.blit_offset[0] > self.tile_size*scale:
+            self.blit_offset[0] = 0
+        elif self.blit_offset[1] > self.tile_size*scale:
+            self.blit_offset[1] = 0

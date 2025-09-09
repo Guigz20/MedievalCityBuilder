@@ -7,6 +7,7 @@ from Map.map import Map
 class Game:
     def __init__(self):
         pg.init()
+        pg.joystick.init()
         self.screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pg.display.set_caption('CityBuilder')
         self.clock = pg.time.Clock()
@@ -18,6 +19,8 @@ class Game:
 
         self.joysticks = {}
 
+        #print(pygame.joystick.get_count())
+
     def loop(self):
         while self.running:
             dt = self.clock.tick(120)/1000
@@ -25,9 +28,7 @@ class Game:
             self.screen.fill((0,0,0))
 
             self.map.draw(self.scale_factor)
-            self.map.move(dt)
-
-            #print(self.joystick.get_ball(0))
+            self.map.move(dt, self.scale_factor)
 
             pg.display.flip()
             for event in pg.event.get():
@@ -35,6 +36,8 @@ class Game:
                     joystick = pygame.joystick.Joystick(event.device_index)
                     self.joysticks[joystick.get_instance_id()] = joystick
                     print(f"Joystick {joystick.get_instance_id()} added! ")
+                elif event.type == pg.JOYBUTTONDOWN:
+                    print(event.button)
 
                 elif event.type == pg.QUIT:
                     self.running = False
