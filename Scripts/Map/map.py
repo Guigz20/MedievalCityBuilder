@@ -1,3 +1,5 @@
+import math
+
 import pygame
 import pygame as pg
 from pygame.examples.grid import TILE_SIZE
@@ -21,44 +23,55 @@ class Map:
         self.direction = ""
         self.speed = 120
 
-        self.grass = pg.image.load('../Assets/Map/Images/Grass01.png')
-        self.grass_list = [[]]
+        self.grass = pg.image.load('../Assets/Map/Images/Grass02.png')
 
-    def initiate_surface(self, scale_factor):
-
-        for x in range(SCREEN_WIDTH//TILE_SIZE*scale_factor):
-            for y in range(SCREEN_HEIGHT//TILE_SIZE*scale_factor):
-                scaled_grass = pg.transform.scale(self.grass, (TILE_SIZE*scale_factor, TILE_SIZE*scale_factor))
-                rotated_grass = pg.transform.flip(scaled_grass, True, False)
-                self.grass_list[x].append(pg.transform.scale(rotated_grass, (TILE_SIZE*scale_factor, TILE_SIZE*scale_factor)))
-
-
+    """ Draws the map to screen """
     def draw(self,scale):
-        pygame.draw.circle(self.screen, (255, 0, 0), self.offset, 10)
-        pygame.draw.circle(self.screen, (0, 255, 0), self.blit_offset, 10)
+
+        """Draws the grass background"""
         self.scaled_grass = pg.transform.scale(self.grass, (self.tile_size*scale, self.tile_size*scale))
-        for x in range(SCREEN_WIDTH//self.tile_size*scale + self.tile_size*scale):
-            for y in range(SCREEN_HEIGHT//self.tile_size*scale + self.tile_size*scale):
+        for x in range(int(SCREEN_WIDTH//self.tile_size*scale + 2)):
+            for y in range(int(SCREEN_HEIGHT//self.tile_size*scale + 2)):
                 x_blit = self.blit_offset[0]+x*self.tile_size*scale-self.tile_size*scale
                 y_blit = self.blit_offset[1]+y*self.tile_size*scale-self.tile_size*scale
                 self.screen.blit(self.scaled_grass, (x_blit, y_blit))
 
+    """ Executes when zoom button is pressed, centers the zoom """
+    def on_zoom(self, scale_increment: float, scale:float, increasing = bool):
 
-    def move(self, dt: float, scale: float):
+        x = SCREEN_WIDTH * scale_increment
+        y = SCREEN_HEIGHT * scale_increment
 
-        keys = pg.key.get_pressed()
-        if keys[pg.K_w]:
-            self.offset[1] += self.speed * dt
-            self.blit_offset[1] += self.speed * dt
-        elif keys[pg.K_s]:
-            self.offset[1] -= self.speed * dt
-            self.blit_offset[1] -= self.speed * dt
-        elif keys[pg.K_a]:
-            self.offset[0] += self.speed * dt
-            self.blit_offset[0] += self.speed * dt
-        elif keys[pg.K_d]:
-            self.offset[0] -= self.speed * dt
-            self.blit_offset[0] -= self.speed * dt
+        if increasing:
+
+            self.offset[0] -= x
+            self.offset[1] -= y
+
+            self.move_blit_offset(-x, 0, scale)
+            self.move_blit_offset(0, -y, scale)
+        else:
+            self.offset[0] += x
+            self.offset[1] += y
+
+            self.move_blit_offset(x, 0, scale)
+            self.move_blit_offset(0, y, scale)
+
+        #print(SCREEN_WIDTH * scale_increment)
+        #print(self.offset)
+        #print(self.blit_offset)
+
+    """ Move blit_offset without escaping boudaries """
+    def move_blit_offset(self, x, y, scale):
+        if abs(x) >= self.tile_size*scale:
+            self.blit_offset[0] += x/self.tile_size*scale - int(x/self.tile_size*scale)
+            print(x/self.tile_size*scale - int(x/self.tile_size*scale))
+            print(self.blit_offset)
+        else:
+            self.blit_offset[0] += x
+        if abs(y) >= self.tile_size*scale:
+            self.blit_offset[1] += y/self.tile_size*scale - int(y/self.tile_size*scale)
+        else:
+            self.blit_offset[1] += y
 
         if self.blit_offset[0] < 0:
             self.blit_offset[0] = self.tile_size*scale
@@ -68,3 +81,21 @@ class Map:
             self.blit_offset[0] = 0
         elif self.blit_offset[1] > self.tile_size*scale:
             self.blit_offset[1] = 0
+
+    """ Moves the entire map's offset and blit offset"""
+    def move(self, dt: float, scale: float):
+
+        keys = pg.key.get_pressed()
+        if keys[pg.K_w]:
+            self.offset[1] += self.speed * dt
+            self.move_blit_offset(0, self.speed*dt, scale)
+        elif keys[pg.K_s]:
+            self.offset[1] -= self.speed * dt
+            self.move_blit_offset(0, -self.speed*dt, scale)
+        elif keys[pg.K_a]:
+            self.offset[0] += self.speed * dt
+            self.move_blit_offset(self.speed * dt, 0, scale)
+        elif keys[pg.K_d]:
+            self.offset[0] -= self.speed * dt
+            self.move_blit_offset(-self.speed*dt, 0, scale)
+

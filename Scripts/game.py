@@ -13,7 +13,9 @@ class Game:
         self.clock = pg.time.Clock()
 
         self.running = True
+
         self.scale_factor = INITIAL_SCALE_FACTOR
+        self.scale_increment = 0.25
 
         self.map = Map()
 
@@ -38,6 +40,14 @@ class Game:
                     print(f"Joystick {joystick.get_instance_id()} added! ")
                 elif event.type == pg.JOYBUTTONDOWN:
                     print(event.button)
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.K_UP:
+                        self.scale_factor += self.scale_increment
+                        self.map.on_zoom(self.scale_factor, True)
+                    elif event.key == pg.K_DOWN:
+                        if self.scale_factor > 1:
+                            self.scale_factor -= self.scale_increment
+                            self.map.on_zoom(self.scale_factor, False)
 
                 elif event.type == pg.QUIT:
                     self.running = False
