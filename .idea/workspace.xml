@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd46586e-3bea-4de2-96f5-3ff17b9bdb78" name="Changes" comment="Carte infinie ajoutée">
-      <change afterPath="$PROJECT_DIR$/Assets/Map/Images/Grass02.png" afterDir="false" />
+    <list default="true" id="dd46586e-3bea-4de2-96f5-3ff17b9bdb78" name="Changes" comment="Mouvement de la carte et zoom. Zoom pas centré">
+      <change afterPath="$PROJECT_DIR$/Assets/Map/Buildings/Habitats/Tent.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Map/Buildings/Habitats/Tent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/Map/Buildings/building.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scripts/Map/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/Map/map.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/Utilz/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/Utilz/constants.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scripts/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/game.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,20 +47,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.game.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/victoriacarron/PycharmProjects/MedievalCityBuilder/Assets/Map/Images&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Python&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.game.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/victoriacarron/PycharmProjects/MedievalCityBuilder/Assets/Map/Buildings/Habitats",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Python"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Assets/Map/Buildings/Habitats" />
       <recent name="$PROJECT_DIR$/Assets/Map/Images" />
     </key>
   </component>
@@ -179,7 +181,15 @@
       <option name="project" value="LOCAL" />
       <updated>1757401307117</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Mouvement de la carte et zoom. Zoom pas centré">
+      <option name="closed" value="true" />
+      <created>1757509956358</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1757509956358</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -188,6 +198,7 @@
     <MESSAGE value="Ajout mouvement de la map ++" />
     <MESSAGE value="Essais d'optimisation d'affichage de la map" />
     <MESSAGE value="Carte infinie ajoutée" />
-    <option name="LAST_COMMIT_MESSAGE" value="Carte infinie ajoutée" />
+    <MESSAGE value="Mouvement de la carte et zoom. Zoom pas centré" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mouvement de la carte et zoom. Zoom pas centré" />
   </component>
 </project>

@@ -43,11 +43,11 @@ class Game:
                 elif event.type == pg.KEYDOWN:
                     if event.key == pg.K_UP:
                         self.scale_factor += self.scale_increment
-                        self.map.on_zoom(self.scale_factor, True)
+                        #self.map.on_zoom(self.scale_factor, True)
                     elif event.key == pg.K_DOWN:
                         if self.scale_factor > 1:
                             self.scale_factor -= self.scale_increment
-                            self.map.on_zoom(self.scale_factor, False)
+                            #self.map.on_zoom(self.scale_factor, False)
 
                 elif event.type == pg.QUIT:
                     self.running = False

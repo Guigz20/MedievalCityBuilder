@@ -2,9 +2,11 @@ import math
 
 import pygame
 import pygame as pg
-from pygame.examples.grid import TILE_SIZE
 
+from Scripts.Map.Buildings.Habitats.Tent import Tent
 from Scripts.Utilz.constants import *
+from Scripts.Map.Buildings.Habitats.Tent import Tent
+
 import random
 
 class Map:
@@ -12,16 +14,16 @@ class Map:
         self.screen = pg.display.get_surface()
         self.tile_size = 36
 
-        self.map = {}
-        self.width, self.height = 0, 0
+        self.buildings = []
+        self.buildings.append(Tent([100, 100]))
+
         self.offset = [0, 0]
         self.blit_offset = [-self.tile_size*INITIAL_SCALE_FACTOR/2, -self.tile_size*INITIAL_SCALE_FACTOR/2]
 
         self.in_screen_tiles = {}
 
         self.should_move = False
-        self.direction = ""
-        self.speed = 120
+        self.speed = 200
 
         self.grass = pg.image.load('../Assets/Map/Images/Grass02.png')
 
@@ -35,6 +37,10 @@ class Map:
                 x_blit = self.blit_offset[0]+x*self.tile_size*scale-self.tile_size*scale
                 y_blit = self.blit_offset[1]+y*self.tile_size*scale-self.tile_size*scale
                 self.screen.blit(self.scaled_grass, (x_blit, y_blit))
+
+        """Draws all the buildings"""
+        for building in self.buildings:
+            building.draw(self.screen, scale, self.offset)
 
     """ Executes when zoom button is pressed, centers the zoom """
     def on_zoom(self, scale_increment: float, scale:float, increasing = bool):
