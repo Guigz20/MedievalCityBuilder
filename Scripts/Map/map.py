@@ -3,6 +3,7 @@ import math
 import pygame
 import pygame as pg
 
+from Scripts.Livings.Living import Living
 from Scripts.Map.Buildings.Habitats.Tent import Tent
 from Scripts.Utilz.constants import *
 from Scripts.Map.Buildings.Habitats.Tent import Tent
@@ -25,6 +26,9 @@ class Map:
         self.should_move = False
         self.speed = 200
 
+        self.livings = []
+        self.livings.append(Living())
+
         self.grass = pg.image.load('../Assets/Map/Images/Grass02.png')
 
     """ Draws the map to screen """
@@ -41,6 +45,13 @@ class Map:
         """Draws all the buildings"""
         for building in self.buildings:
             building.draw(self.screen, scale, self.offset)
+
+        self.draw_livings(scale)
+
+    def draw_livings(self, scale):
+        """Draws all the livings"""
+        for living in self.livings:
+            living.draw(scale)
 
     """ Executes when zoom button is pressed, centers the zoom """
     def on_zoom(self, scale_increment: float, scale:float, increasing = bool):
