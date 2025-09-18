@@ -3,6 +3,7 @@ import pygame.joystick
 
 from Utilz.constants import *
 from Map.map import Map
+from Utilz.pathfinding import Pathfinder
 
 class Game:
     def __init__(self):
@@ -18,6 +19,7 @@ class Game:
         self.scale_increment = 0.25
 
         self.map = Map()
+        self.pathfinder = Pathfinder((5, 5), (10, 10))
 
         self.joysticks = {}
 

@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd46586e-3bea-4de2-96f5-3ff17b9bdb78" name="Changes" comment="Ajout tente">
-      <change afterPath="$PROJECT_DIR$/Scripts/Livings/Living.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Utilz/pathfinding.py" afterDir="false" />
+    <list default="true" id="dd46586e-3bea-4de2-96f5-3ff17b9bdb78" name="Changes" comment="Pathfinding commencé">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/Map/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/Map/map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/Utilz/pathfinding.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/Utilz/pathfinding.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/game.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758003445278</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Pathfinding commencé">
+      <option name="closed" value="true" />
+      <created>1758006078269</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1758006078269</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -214,6 +221,7 @@
     <MESSAGE value="Carte infinie ajoutée" />
     <MESSAGE value="Mouvement de la carte et zoom. Zoom pas centré" />
     <MESSAGE value="Ajout tente" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout tente" />
+    <MESSAGE value="Pathfinding commencé" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pathfinding commencé" />
   </component>
 </project>
