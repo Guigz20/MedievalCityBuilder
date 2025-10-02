@@ -19,7 +19,7 @@ class Game:
         self.scale_increment = 0.25
 
         self.map = Map()
-        self.pathfinder = Pathfinder((5, 5), (10, 10))
+        self.pathfinder = Pathfinder((5, 5), (10, 10), [], self.map.tile_size*INITIAL_SCALE_FACTOR)
 
         self.joysticks = {}
 
@@ -33,6 +33,8 @@ class Game:
 
             self.map.draw(self.scale_factor)
             self.map.move(dt, self.scale_factor)
+
+            self.pathfinder.blit(self.map.offset)
 
             pg.display.flip()
             for event in pg.event.get():
