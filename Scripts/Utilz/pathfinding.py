@@ -1,5 +1,3 @@
-from idlelib.colorizer import prog_group_name_to_tag
-
 import pygame as pg
 from math import *
 
